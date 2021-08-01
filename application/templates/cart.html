@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<title>Cart</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<title>Elegant Travelers</title>
+	<link href="https://fonts.googleapis.com/css2?family=Alegreya+Sans&display=swap" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Open+Sans&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" />
+	<link rel="stylesheet" href="static/css/header.css">
+	<link rel="stylesheet" href="static/css/footer.css">
+	<link rel="stylesheet" href="static/css/cart.css">
+</head>
+
+<body>
+	<header id="header">
+		<div class="logo">
+			<img src="static/assets/images/logo.png" alt="Elegant Travelers">
+		</div>
+		<div class="navbar">
+			<ul>
+				<li class="active"><a href="#" style="text-decoration: none">Home</a></li>
+				<li><a href="{{ url_for('tourspackages') }}">Packages</a></li>
+				<li><a href="{{ url_for('flightDetails') }}" style="text-decoration: none">Flight Details</a></li>
+				<li><a href="{{ url_for('contactus') }}">Contact Us</a></li>
+				<li><a href="{{ url_for('aboutus') }}" style="text-decoration: none">About Us</a></li>
+				<li><a href="{{ url_for('cart') }}">Cart</a></li>
+				{% if loggedIn  %}
+					<li><a href="#" style="text-decoration: none">Hello, {{ session['name'] }}</a></li>
+					<li><a href="{{ url_for('logout') }}">Logout</a></li>
+
+				{% endif %}
+				{% if not loggedIn  %}
+					<li><a href="{{ url_for('loginpage') }}" style="text-decoration: none">Login/Signup</a></li>
+				{% endif %}
+
+			</ul>
+		</div>
+	</header>
+
+{% if travel_pck != {} %}
+	<div class="container">
+		<h1><b>Cart</b></h1>
+		<div class="cart">
+			<div class="products">
+				<div class="product">
+					<img src="newyork.jpg">
+					<div class="product-info">
+						<h3 class="product-name">Package Name {{travel_pck['Package_name']}}</h3>
+						<h4 class="product-price">Price per person {{travel_pck['Package_Price_per_person']}}</h4>
+						<p class="product-quantity">Number of people: {{travel_pck['total_people']}}
+					</div>
+				</div>
+			</div>
+			<div class="cart-total">
+				<p>	<span>Total Price</span>
+					<span>{{travel_pck['total_price']}} </span>
+				</p>
+				<a href="{{ url_for('booking', travel_pck=travel_pck) }}">Proceed to Checkout</a>
+			</div>
+		</div>
+	</div>
+{% else %}
+	<div style="margin-top:200px; text-align:center;">Cart is empty</div>
+{% endif %}
+
+
+
+	<footer id="footer">
+		<div class="container">
+			<div class="logo">
+				<img src="static/assets/images/logo.png" alt="Elegant Travelers">
+			</div>
+			<p>"The Journey Of Thousand Miles Begins With A Single Step".
+			</p>
+			<div class="social-links">
+				<div class="social-link"><a href="#" class="twitter"><i class="fab fa-twitter"></i></a></div>
+				<div class="social-link"><a href="#" class="facebook"><i class="fab fa-facebook"></i></a></div>
+				<div class="social-link"><a href="#" class="instagram"><i class="fab fa-instagram"></i></a></div>
+				<div class="social-link"><a href="#" class="google-plus"><i class="fab fa-skype"></i></a></div>
+				<div class="social-link"><a href="#" class="linkedin"><i class="fab fa-linkedin"></i></a></div>
+			</div>
+			<div class="copyright">
+				&copy; Copyright <strong><span>Elegant Travelers</span></strong>. All Rights Reserved
+			</div>
+			<div class="credits">
+				Designed by Aaditya Chauhan
+			</div>
+		</div>
+	</footer>
+</body>
+
+
+</html>
